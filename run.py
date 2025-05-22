@@ -5,7 +5,7 @@ from antlr4 import *
 
 # Define your variables
 DIR = os.path.dirname(__file__)
-ANTLR_JAR = "D:\\Code\\PPL\\antlr4-4.9.2-complete.jar" # your location is going here
+ANTLR_JAR = os.path.join(DIR, "antlr4-4.9.2-complete.jar")  # jar file in project root
 CPL_Dest = 'CompiledFiles'
 SRC = 'logicEx.g4'
 TESTS = os.path.join(DIR, './tests')
@@ -28,7 +28,7 @@ def runTest():
     print('Running test : ' + filename)
     filepath = os.path.join(DIR, './tests', filename)      
     
-    lexer = logicExLexer(FileStream(filepath))        
+    lexer = logicExLexer(FileStream(filepath, encoding='utf-8'))        
     tokens = []
     token = lexer.nextToken()
     while token.type != Token.EOF:

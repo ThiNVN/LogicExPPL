@@ -1,16 +1,41 @@
 grammar logicEx;
 
-// Parser rules
-expression: term (OR term)*;
-term: factor (AND factor)*;
-factor: NOT? (LPAREN expression RPAREN | IDENTIFIER | BOOL);
+expression: 
+      expression binaryOp expression   # BinaryExpression
+    | unaryOp expression               # UnaryExpression
+    | atom                             # AtomExpression
+    | '(' expression ')'               # ParenthesizedExpression
+    ;
 
-// Lexer rules
-AND: 'AND' | 'and' | '&&' | '&';
-OR: 'OR' | 'or' | '||' | '|';
-NOT: 'NOT' | 'not' | '!';
+binaryOp
+    : AND
+    | OR
+    | NAND
+    | NOR
+    ;
+
+unaryOp
+    : NOT
+    ;
+
+atom
+    : TRUE
+    | FALSE
+    | ID
+    ;
+
+NOT: '~' | '!';
+AND: '&';
+OR: '|' | '+';
+NAND: '^' | '!&';
+NOR: '*' | '!+' ;
+
+TRUE: '1';
+FALSE: '0';
+
+ID: [a-zA-Z][a-zA-Z0-9_]*;
+
 LPAREN: '(';
 RPAREN: ')';
-IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]*;
-BOOL: 'TRUE' | 'FALSE' | 'true' | 'false';
-WS: [ \t\r\n]+ -> skip; 
+
+WS: [ \t\r\n]+ -> skip;
