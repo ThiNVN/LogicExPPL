@@ -1,4 +1,4 @@
-# Generated from logicEx.g4 by ANTLR 4.9.2
+# Generated from PropositionalLogic.g4 by ANTLR 4.9.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -27,9 +27,9 @@ def serializedATN():
         return buf.getvalue()
 
 
-class logicExParser ( Parser ):
+class PropositionalLogicParser ( Parser ):
 
-    grammarFileName = "logicEx.g4"
+    grammarFileName = "PropositionalLogic.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -81,7 +81,7 @@ class logicExParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return logicExParser.RULE_expression
+            return PropositionalLogicParser.RULE_expression
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -90,58 +90,58 @@ class logicExParser ( Parser ):
 
     class ParenthesizedExpressionContext(ExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a logicExParser.ExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a PropositionalLogicParser.ExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LPAREN(self):
-            return self.getToken(logicExParser.LPAREN, 0)
+            return self.getToken(PropositionalLogicParser.LPAREN, 0)
         def expression(self):
-            return self.getTypedRuleContext(logicExParser.ExpressionContext,0)
+            return self.getTypedRuleContext(PropositionalLogicParser.ExpressionContext,0)
 
         def RPAREN(self):
-            return self.getToken(logicExParser.RPAREN, 0)
+            return self.getToken(PropositionalLogicParser.RPAREN, 0)
 
 
     class BinaryExpressionContext(ExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a logicExParser.ExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a PropositionalLogicParser.ExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expression(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(logicExParser.ExpressionContext)
+                return self.getTypedRuleContexts(PropositionalLogicParser.ExpressionContext)
             else:
-                return self.getTypedRuleContext(logicExParser.ExpressionContext,i)
+                return self.getTypedRuleContext(PropositionalLogicParser.ExpressionContext,i)
 
         def binaryOp(self):
-            return self.getTypedRuleContext(logicExParser.BinaryOpContext,0)
+            return self.getTypedRuleContext(PropositionalLogicParser.BinaryOpContext,0)
 
 
 
     class UnaryExpressionContext(ExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a logicExParser.ExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a PropositionalLogicParser.ExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def unaryOp(self):
-            return self.getTypedRuleContext(logicExParser.UnaryOpContext,0)
+            return self.getTypedRuleContext(PropositionalLogicParser.UnaryOpContext,0)
 
         def expression(self):
-            return self.getTypedRuleContext(logicExParser.ExpressionContext,0)
+            return self.getTypedRuleContext(PropositionalLogicParser.ExpressionContext,0)
 
 
 
     class AtomExpressionContext(ExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a logicExParser.ExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a PropositionalLogicParser.ExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def atom(self):
-            return self.getTypedRuleContext(logicExParser.AtomContext,0)
+            return self.getTypedRuleContext(PropositionalLogicParser.AtomContext,0)
 
 
 
@@ -149,7 +149,7 @@ class logicExParser ( Parser ):
     def expression(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = logicExParser.ExpressionContext(self, self._ctx, _parentState)
+        localctx = PropositionalLogicParser.ExpressionContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 0
         self.enterRecursionRule(localctx, 0, self.RULE_expression, _p)
@@ -158,8 +158,8 @@ class logicExParser ( Parser ):
             self.state = 17
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [logicExParser.NOT]:
-                localctx = logicExParser.UnaryExpressionContext(self, localctx)
+            if token in [PropositionalLogicParser.NOT]:
+                localctx = PropositionalLogicParser.UnaryExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
 
@@ -168,23 +168,23 @@ class logicExParser ( Parser ):
                 self.state = 10
                 self.expression(3)
                 pass
-            elif token in [logicExParser.TRUE, logicExParser.FALSE, logicExParser.ID]:
-                localctx = logicExParser.AtomExpressionContext(self, localctx)
+            elif token in [PropositionalLogicParser.TRUE, PropositionalLogicParser.FALSE, PropositionalLogicParser.ID]:
+                localctx = PropositionalLogicParser.AtomExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 12
                 self.atom()
                 pass
-            elif token in [logicExParser.LPAREN]:
-                localctx = logicExParser.ParenthesizedExpressionContext(self, localctx)
+            elif token in [PropositionalLogicParser.LPAREN]:
+                localctx = PropositionalLogicParser.ParenthesizedExpressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 13
-                self.match(logicExParser.LPAREN)
+                self.match(PropositionalLogicParser.LPAREN)
                 self.state = 14
                 self.expression(0)
                 self.state = 15
-                self.match(logicExParser.RPAREN)
+                self.match(PropositionalLogicParser.RPAREN)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -198,7 +198,7 @@ class logicExParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = logicExParser.BinaryExpressionContext(self, logicExParser.ExpressionContext(self, _parentctx, _parentState))
+                    localctx = PropositionalLogicParser.BinaryExpressionContext(self, PropositionalLogicParser.ExpressionContext(self, _parentctx, _parentState))
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                     self.state = 19
                     if not self.precpred(self._ctx, 4):
@@ -229,33 +229,33 @@ class logicExParser ( Parser ):
             self.parser = parser
 
         def AND(self):
-            return self.getToken(logicExParser.AND, 0)
+            return self.getToken(PropositionalLogicParser.AND, 0)
 
         def OR(self):
-            return self.getToken(logicExParser.OR, 0)
+            return self.getToken(PropositionalLogicParser.OR, 0)
 
         def NAND(self):
-            return self.getToken(logicExParser.NAND, 0)
+            return self.getToken(PropositionalLogicParser.NAND, 0)
 
         def NOR(self):
-            return self.getToken(logicExParser.NOR, 0)
+            return self.getToken(PropositionalLogicParser.NOR, 0)
 
         def getRuleIndex(self):
-            return logicExParser.RULE_binaryOp
+            return PropositionalLogicParser.RULE_binaryOp
 
 
 
 
     def binaryOp(self):
 
-        localctx = logicExParser.BinaryOpContext(self, self._ctx, self.state)
+        localctx = PropositionalLogicParser.BinaryOpContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_binaryOp)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 28
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << logicExParser.AND) | (1 << logicExParser.OR) | (1 << logicExParser.NAND) | (1 << logicExParser.NOR))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PropositionalLogicParser.AND) | (1 << PropositionalLogicParser.OR) | (1 << PropositionalLogicParser.NAND) | (1 << PropositionalLogicParser.NOR))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -277,22 +277,22 @@ class logicExParser ( Parser ):
             self.parser = parser
 
         def NOT(self):
-            return self.getToken(logicExParser.NOT, 0)
+            return self.getToken(PropositionalLogicParser.NOT, 0)
 
         def getRuleIndex(self):
-            return logicExParser.RULE_unaryOp
+            return PropositionalLogicParser.RULE_unaryOp
 
 
 
 
     def unaryOp(self):
 
-        localctx = logicExParser.UnaryOpContext(self, self._ctx, self.state)
+        localctx = PropositionalLogicParser.UnaryOpContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_unaryOp)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 30
-            self.match(logicExParser.NOT)
+            self.match(PropositionalLogicParser.NOT)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -310,30 +310,30 @@ class logicExParser ( Parser ):
             self.parser = parser
 
         def TRUE(self):
-            return self.getToken(logicExParser.TRUE, 0)
+            return self.getToken(PropositionalLogicParser.TRUE, 0)
 
         def FALSE(self):
-            return self.getToken(logicExParser.FALSE, 0)
+            return self.getToken(PropositionalLogicParser.FALSE, 0)
 
         def ID(self):
-            return self.getToken(logicExParser.ID, 0)
+            return self.getToken(PropositionalLogicParser.ID, 0)
 
         def getRuleIndex(self):
-            return logicExParser.RULE_atom
+            return PropositionalLogicParser.RULE_atom
 
 
 
 
     def atom(self):
 
-        localctx = logicExParser.AtomContext(self, self._ctx, self.state)
+        localctx = PropositionalLogicParser.AtomContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_atom)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 32
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << logicExParser.TRUE) | (1 << logicExParser.FALSE) | (1 << logicExParser.ID))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << PropositionalLogicParser.TRUE) | (1 << PropositionalLogicParser.FALSE) | (1 << PropositionalLogicParser.ID))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

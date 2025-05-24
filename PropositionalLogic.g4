@@ -1,4 +1,4 @@
-grammar logicEx;
+grammar PropositionalLogic;
 
 expression: 
       expression binaryOp expression   # BinaryExpression

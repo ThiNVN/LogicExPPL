@@ -1,4 +1,4 @@
-# Generated from logicEx.g4 by ANTLR 4.9.2
+# Generated from PropositionalLogic.g4 by ANTLR 4.9.2
 from antlr4 import *
 from io import StringIO
 import sys
@@ -38,7 +38,7 @@ def serializedATN():
         return buf.getvalue()
 
 
-class logicExLexer(Lexer):
+class PropositionalLogicLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -70,7 +70,7 @@ class logicExLexer(Lexer):
     ruleNames = [ "NOT", "AND", "OR", "NAND", "NOR", "TRUE", "FALSE", "ID", 
                   "LPAREN", "RPAREN", "WS" ]
 
-    grammarFileName = "logicEx.g4"
+    grammarFileName = "PropositionalLogic.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
