@@ -88,9 +88,11 @@ def generate_truth_table(expr):
 def check_grammar(expr):
     input_stream = InputStream(expr)
     lexer = PropositionalLogicLexer(input_stream)
+    error_listener = CustomErrorListener()
+    lexer.removeErrorListeners()
+    lexer.addErrorListener(error_listener)
     token_stream = CommonTokenStream(lexer)
     parser = PropositionalLogicParser(token_stream)
-    error_listener = CustomErrorListener()
     parser.removeErrorListeners()
     parser.addErrorListener(error_listener)
     parser.expression()

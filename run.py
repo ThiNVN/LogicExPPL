@@ -83,33 +83,29 @@ class PropositionalLogicEvaluator:
             self.show_message("Please enter an expression")
             return
             
-        # Get tokenized output first to check for token recognition errors
-        from CompiledFiles.PropositionalLogicLexer import PropositionalLogicLexer
-        from antlr4 import InputStream
-        input_stream = InputStream(expr)
-        lexer = PropositionalLogicLexer(input_stream)
-        tokens = []
-        try:
+        # Check grammar first
+        is_valid, error = backend.check_grammar(expr)
+        
+        # If grammar is valid, show tokenized output
+        if is_valid:
+            # Get tokenized output
+            from CompiledFiles.PropositionalLogicLexer import PropositionalLogicLexer
+            from antlr4 import InputStream
+            input_stream = InputStream(expr)
+            lexer = PropositionalLogicLexer(input_stream)
+            tokens = []
             token = lexer.nextToken()
             while token.type != -1:  # -1 is EOF
                 tokens.append(token.text)
                 token = lexer.nextToken()
             tokens.append('<EOF>')
             token_output = ','.join(tokens)
-        except Exception as e:
-            # If there's a token recognition error, show it as grammar error
-            self.show_message(str(e))
-            return
             
-        # If no token errors, check grammar
-        is_valid, error = backend.check_grammar(expr)
-        
-        # Show results
-        if is_valid:
             message = f"Grammar is valid!\n\nTokenized output:{token_output}"
             self.show_message(message, color="green")
         else:
-            self.show_message(error)
+            message = f"Grammar is invalid!\n\n{error}"
+            self.show_message(message)
 
     def show_message(self, msg, color="red"):
         for widget in self.table_frame.winfo_children():
