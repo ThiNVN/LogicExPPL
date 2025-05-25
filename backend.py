@@ -70,7 +70,6 @@ def evaluate_tree(tree, assignments):
     raise ValueError(f"Unknown expression type: {rule_name}")
 
 def generate_truth_table(expr):
-    # Find variables
     variables = sorted(set([c for c in expr if c.isalpha()]))
     if not variables:
         raise Exception("No variables found in expression.")

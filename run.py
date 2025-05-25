@@ -4,7 +4,6 @@ import tkinter as tk
 from tkinter import ttk
 import backend
 
-# Define your variables
 DIR = os.path.dirname(__file__)
 ANTLR_JAR = os.path.join(DIR, "antlr4-4.9.2-complete.jar")
 CPL_Dest = 'CompiledFiles'
@@ -20,21 +19,18 @@ class PropositionalLogicEvaluator:
         main_frame = ttk.Frame(self.window, padding="20")
         main_frame.pack(fill=tk.BOTH, expand=True)
 
-        # Expression input row
         input_row = ttk.Frame(main_frame)
         input_row.pack(anchor=tk.W, pady=(0, 10))
         ttk.Label(input_row, text="Expression:").pack(side=tk.LEFT)
         self.expr_entry = ttk.Entry(input_row, width=50, font=("Consolas", 14))
         self.expr_entry.pack(side=tk.LEFT, padx=(10, 0))
 
-        # Checkbox row
         self.calc_forms_var = tk.BooleanVar()
         forms_row = ttk.Frame(main_frame)
         forms_row.pack(anchor=tk.W, pady=(0, 10))
         self.forms_checkbox = ttk.Checkbutton(forms_row, text="Calculate the forms?", variable=self.calc_forms_var)
         self.forms_checkbox.pack(side=tk.LEFT)
 
-        # Operator buttons grid
         op_frame = ttk.Frame(main_frame)
         op_frame.pack(pady=(0, 10))
         op_buttons = [
@@ -44,14 +40,12 @@ class PropositionalLogicEvaluator:
             btn = tk.Button(op_frame, text=label, width=10, bg='#b3e0ff', fg='black', activebackground='#99d6ff', command=lambda s=symbol: self.insert_operator(s))
             btn.grid(row=0, column=i, padx=2, pady=2)
 
-        # Calculate, Check Grammar, and Clear All buttons
         btn_row = ttk.Frame(main_frame)
         btn_row.pack(pady=(0, 10))
         tk.Button(btn_row, text="CALCULATE", command=self.evaluate_expression, width=20, bg='#4CAF50', fg='white', activebackground='#45a049').pack(side=tk.LEFT, padx=10)
         tk.Button(btn_row, text="CHECK GRAMMAR", command=self.check_grammar, width=20, bg='#2196F3', fg='white', activebackground='#1976D2').pack(side=tk.LEFT, padx=10)
         tk.Button(btn_row, text="CLEAR ALL", command=self.clear_all, width=20, bg='#f44336', fg='white', activebackground='#da190b').pack(side=tk.LEFT, padx=10)
 
-        # Result/Truth Table area
         ttk.Label(main_frame, text="ANSWER", font=("Arial", 16, "bold"), foreground="#2a7f62").pack(pady=(10, 0))
         self.table_frame = ttk.Frame(main_frame)
         self.table_frame.pack(fill=tk.BOTH, expand=True, pady=(5, 0))
@@ -83,12 +77,9 @@ class PropositionalLogicEvaluator:
             self.show_message("Please enter an expression")
             return
             
-        # Check grammar first
         is_valid, error = backend.check_grammar(expr)
         
-        # If grammar is valid, show tokenized output
         if is_valid:
-            # Get tokenized output
             from CompiledFiles.PropositionalLogicLexer import PropositionalLogicLexer
             from antlr4 import InputStream
             input_stream = InputStream(expr)
@@ -121,18 +112,18 @@ class PropositionalLogicEvaluator:
         n_cols = len(columns)
         cell_font = ("Arial", 12)
         header_font = ("Arial", 12, "bold")
-        # Create header row
+
         for j, col in enumerate(columns):
             bg = '#ffe066' if j < len(variables) else '#b6fcd5'
             label = tk.Label(self.table_frame, text=col, bg=bg, fg='black', font=header_font, width=7, height=1, borderwidth=1, relief="solid", anchor='center')
             label.grid(row=0, column=j, sticky='nsew', padx=0, pady=0)
-        # Create data rows
+
         for i, row in enumerate(results):
             for j, val in enumerate(row):
                 bg = 'white'
                 label = tk.Label(self.table_frame, text=val, bg=bg, fg='black', font=cell_font, width=7, height=1, borderwidth=1, relief="solid", anchor='center')
                 label.grid(row=i+1, column=j, sticky='nsew', padx=0, pady=0)
-        # Make columns expand equally
+
         for j in range(n_cols):
             self.table_frame.grid_columnconfigure(j, weight=1)
         for i in range(n_rows):
