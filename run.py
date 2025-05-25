@@ -6,7 +6,7 @@ import backend
 
 # Define your variables
 DIR = os.path.dirname(__file__)
-ANTLR_JAR = 'C:/JavaLib/antlr4-4.9.2-complete.jar'
+ANTLR_JAR = os.path.join(DIR, "antlr4-4.9.2-complete.jar")
 CPL_Dest = 'CompiledFiles'
 SRC = 'PropositionalLogic.g4'
 
@@ -82,17 +82,40 @@ class PropositionalLogicEvaluator:
         if not expr:
             self.show_message("Please enter an expression")
             return
+            
+        # Get tokenized output first to check for token recognition errors
+        from CompiledFiles.PropositionalLogicLexer import PropositionalLogicLexer
+        from antlr4 import InputStream
+        input_stream = InputStream(expr)
+        lexer = PropositionalLogicLexer(input_stream)
+        tokens = []
+        try:
+            token = lexer.nextToken()
+            while token.type != -1:  # -1 is EOF
+                tokens.append(token.text)
+                token = lexer.nextToken()
+            tokens.append('<EOF>')
+            token_output = ','.join(tokens)
+        except Exception as e:
+            # If there's a token recognition error, show it as grammar error
+            self.show_message(str(e))
+            return
+            
+        # If no token errors, check grammar
         is_valid, error = backend.check_grammar(expr)
+        
+        # Show results
         if is_valid:
-            self.show_message("Grammar is valid!", color="green")
+            message = f"Grammar is valid!\n\nTokenized output:{token_output}"
+            self.show_message(message, color="green")
         else:
-            self.show_message("Grammar is invalid!")
+            self.show_message(error)
 
     def show_message(self, msg, color="red"):
         for widget in self.table_frame.winfo_children():
             widget.destroy()
-        label = ttk.Label(self.table_frame, text=msg, foreground=color, font=("Arial", 12))
-        label.pack()
+        label = ttk.Label(self.table_frame, text=msg, foreground=color, font=("Arial", 12), wraplength=800)
+        label.pack(pady=10)
 
     def display_table(self, variables, results, expr):
         for widget in self.table_frame.winfo_children():
