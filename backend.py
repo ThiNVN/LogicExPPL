@@ -48,7 +48,9 @@ def evaluate_tree(tree, assignments):
             return left and right
         elif op in ['|', '+']:  # OR
             return left or right
-        elif op in ['^', '!&']:  # NAND
+        elif op in ['^']:  # XOR
+            return (left and not right) or (not left and right)
+        elif op in ['!&']:  # NAND
             return not (left and right)
         elif op in ['*', '!+']:  # NOR
             return not (left or right)
